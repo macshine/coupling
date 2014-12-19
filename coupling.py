@@ -45,6 +45,8 @@ def coupling(data,smooth):
     sma = pd.rolling_mean(temp,smooth)
     sma = np.reshape(sma,[der,nodes,nodes])
     
+    return (fc, sma)
+    
     
 
 #input the variables 'd' (data) and 's' (smooth) 
