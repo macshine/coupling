@@ -4,7 +4,7 @@
 %smooth: smoothing parameter for simple moving average of coupling metric
 
 
-function [fc, sma] = coupling(data,window)
+function [mtd, sma] = coupling(data,window)
 
 %define variables
 [ts,nodes] = size(data);
@@ -22,17 +22,9 @@ for i = 1:nodes
     td(:,i) = td(:,i) / data_std(1,i);
 end
 
-
-% [...] = zscore(X,FLAG,DIM) standardizes X by working along the dimension
-%    DIM of X. Pass in FLAG==0 to use the default normalization by N-1, or 1
-%    to use N.
-
-
 %functional coupling score
 
-fc = bsxfun(@times,permute(td,[1,3,2]),permute(td,[1,2,3]));
-
-
+mtd = bsxfun(@times,permute(td,[1,3,2]),permute(td,[1,2,3]));
 
 %simple moving average
 
@@ -44,7 +36,7 @@ for j = 1:nodes
     
     for k = 1:nodes
         
-        sma(2:end,j,k) = filter(sma_filter,1,fc(:,j,k));
+        sma(2:end,j,k) = filter(sma_filter,1,mtd(:,j,k));
         
     end
     
