@@ -3,7 +3,7 @@
 import numpy as np
 import pandas as pd
 
-def coupling(data,smooth):
+def coupling(data,window):
     """
         creates a functional coupling metric from 'data'
         data: should be organized in 'time x nodes' matrix
@@ -36,13 +36,13 @@ def coupling(data,smooth):
     for t in range(0,der):
         for i in range(0,nodes):
             for j in range(0,nodes):
-                fc[t,i,j] = td[t,i] * td[t,j]
+                mtd[t,i,j] = td[t,i] * td[t,j]
 
 
     #temporal smoothing
-    temp = np.reshape(fc,[der,nodes*nodes])
+    temp = np.reshape(mtd,[der,nodes*nodes])
     temp = temp.transpose() # numpy transpose????
-    sma = pd.rolling_mean(temp,smooth)
+    sma = pd.rolling_mean(temp,window)
     sma = np.reshape(sma,[der,nodes,nodes])
     
     return (fc, sma)
