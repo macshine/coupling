@@ -16,7 +16,7 @@ def coupling(data,window):
     td = np.zeros((der,nodes))
     td_std = np.zeros((der,nodes))
     data_std = np.zeros(nodes)
-    fc = np.zeros((der,nodes,nodes))
+    mtd = np.zeros((der,nodes,nodes))
     sma = np.zeros((der,nodes*nodes))
     
     #calculate temporal derivative
@@ -36,12 +36,11 @@ def coupling(data,window):
     for t in range(0,der):
         for i in range(0,nodes):
             for j in range(0,nodes):
-                mtd[t,i,j] = td[t,i] * td[t,j]
+                mtd[t,i,j] = td_std[t,i] * td_std[t,j]
 
 
     #temporal smoothing
     temp = np.reshape(mtd,[der,nodes*nodes])
-    temp = temp.transpose() # numpy transpose????
     sma = pd.rolling_mean(temp,window)
     sma = np.reshape(sma,[der,nodes,nodes])
     
