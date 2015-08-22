@@ -44,7 +44,7 @@ def coupling(data,window):
     sma = pd.rolling_mean(temp,window)
     sma = np.reshape(sma,[der,nodes,nodes])
     
-    return (fc, sma)
+    return (mtd, sma)
     
     
 
