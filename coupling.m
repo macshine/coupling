@@ -50,19 +50,18 @@ mtd_filter = 1/window*ones(window,1);
 mtd = zeros(ts,nodes,nodes);
 
 for j = 1:nodes
-    
     for k = 1:nodes
-        
         mtd(2:end,j,k) = filter(mtd_filter,1,fc(:,j,k));
-        
     end
-    
 end
 
+mtd(1:round(window/2),:,:) = [];
+mtd(round(ts-window):ts,:,:) = 0;
 
 mtd = permute(mtd,[2,3,1]);
 
 mtd(:,:,1) = mtd(:,:,2);
+
 
 end
 
