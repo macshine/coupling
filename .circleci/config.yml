@@ -1,0 +1,36 @@
+version: 2.1
+
+orbs:
+  # https://circleci.com/orbs/registry/orb/circleci/docker-publish
+  docker-publish: circleci/docker-publish@0.1.3
+workflows:
+
+  # This workflow will be run on all branches but master (to test)
+  # Since there is no python module, versions coincide with Github commit SHAs
+  build_without_publishing_job:
+    jobs:
+      - docker-publish/publish:
+          image: poldracklab/coupling
+          deploy: false
+          filters:
+            branches:
+              ignore: 
+                - master
+
+  # This workflow will deploy images on merge to master only
+  docker_with_lifecycle:
+    jobs:
+      # Deploy a container tagged with latest
+      - docker-publish/publish:
+          image: poldracklab/coupling
+          tag: latest
+          filters:
+            branches:
+             only: master
+      # Deploy a container tagged with Github commit
+      - docker-publish/publish:
+          image: poldracklab/coupling
+          filters:
+            branches:
+             only: master
+
