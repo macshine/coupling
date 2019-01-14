@@ -22,10 +22,10 @@ You will need to [install Docker](https://docs.docker.com/install/) for your
 platform of choice. Then, you will want to run the container and bind
 the folder (in this example, in the present working directory) to /data
 in the container. You can also change the --entrypoint to be ipython to
-get an ipython shell (the default entrypoint is the python executable):
+get an ipython shell (the default entrypoint is the ipython executable):
 
 ```bash
-docker run -v $PWD:/data -it --entrypoint ipython poldracklab/coupling 
+docker run -v $PWD:/data -it poldracklab/coupling 
 ...
 > from coupling import *
 ```
@@ -33,7 +33,14 @@ docker run -v $PWD:/data -it --entrypoint ipython poldracklab/coupling
 In the above, the working directory is /code (containing coupling.py), and we've 
 mounted your $PWD to /data so you can add data files to use there. You can
 now use the functions in coupling, and save any outputs to /data to persist
-on your local machine.
+on your local machine. If you want to change the entrypoint to something else:
+
+```bash
+docker run -v $PWD:/data -it --entrypoint bash poldracklab/coupling 
+```
+
+A shell (bash) might be a useful entrypoint if you want to start working
+on the command line inside the container.
 
 ### How do I build the container?
 
