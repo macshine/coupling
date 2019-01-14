@@ -10,11 +10,10 @@ RUN apt-get update && \
     apt-get install -y git wget && \
     mkdir -p /code && \
     conda update -n base -c defaults conda && \
-    conda install -y pandas==0.18.0 numpy
+    conda install -y pandas==0.18.0 numpy ipython
 
 
 ADD . /code
 WORKDIR /code
 RUN chmod u+x /code/coupling.py
-ENTRYPOINT ["python"]
-CMD ["/code/coupling.py"]
+ENTRYPOINT ["ipython"]
