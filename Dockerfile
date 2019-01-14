@@ -16,4 +16,4 @@ RUN apt-get update && \
 ADD . /code
 WORKDIR /code
 RUN chmod u+x /code/coupling.py
-ENTRYPOINT ["python"]
+ENTRYPOINT ["ipython"]
